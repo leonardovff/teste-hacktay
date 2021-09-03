@@ -7,10 +7,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { AppRoutingModule } from './app-routing.module';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { RealEstateComponent } from './real-estate.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, HttpClientModule, BrowserAnimationsModule, NbThemeModule.forRoot({ name: 'default' }), NbLayoutModule, NbEvaIconsModule, AppRoutingModule],
+  declarations: [AppComponent, RealEstateComponent],
+  imports: [
+    NgxPageScrollCoreModule.forRoot({ duration: 1600 }),
+    BrowserModule, HttpClientModule, BrowserAnimationsModule, 
+    NbThemeModule.forRoot({ name: 'default' }), NbLayoutModule, 
+    NbEvaIconsModule, AppRoutingModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,10 +1,45 @@
-
-
 # ImovelIdeal
+
+### Required
+1. NodeJs and NPM
+2. Docker and Docker-compose
+
+### Pre usage
+```bash
+npm install
+```
+
+### Elastic search usage
+
+1. Up the elastic service
+
+```bash
+docker-compose up -d elastic
+```
+
+2. Add data to elastic search
+
+```bash
+curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/indexname/typename/optionalUniqueId" -d "{ \"sku\" : \"4\", \"street\" : \"Avenida Paulista\"}"
+```
+
+3. Run the api
+
+```bash
+npx nx serve api
+```
+
+4. Open endpoint in the browser: http://localhost:3333/api/hello
+
+
+
+-----------------------------------------------------------------------------------------------
+
+
+# OLDER -- DON'T SEE
 
 This project was generated using [Nx](https://nx.dev).
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
 
 🔎 **Smart, Extensible Build Framework**
 

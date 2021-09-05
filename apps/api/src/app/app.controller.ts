@@ -9,7 +9,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('hello')
-  getData(): Message {
+  async getData(): Promise<Message> {
     return this.appService.getData();
   }
 }

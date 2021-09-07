@@ -1,10 +1,13 @@
 app: imovelideal
 plugins:
   - serverless-s3-sync
+  - serverless-deployment-bucket
 
 service: imovel-ideal-main
 
 provider:
+  deploymentBucket:
+    name: BucketID
   name: aws
   stage: prod
   region: sa-east-1
@@ -27,6 +30,11 @@ resources:
           ErrorDocument: error.html
 
 custom:
+  deploymentBucket:
+    versioning: true
+    accelerate: true
+    tags:
+      - Key: Environment
   s3Sync:
     - bucketName: imovelideal
       # bucketPrefix: assets/

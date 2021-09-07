@@ -1,0 +1,50 @@
+app: imovelideal
+plugins:
+  - serverless-s3-sync
+  - serverless-deployment-bucket
+
+service: imovel-ideal-main
+
+provider:
+  deploymentBucket:
+    name: BucketID
+  name: aws
+  stage: prod
+  region: sa-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource:
+        - arn:aws:s3:::imovelideal
+
+resources:
+  Resources:
+    frontEnd:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: imovelideal
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: error.html
+
+custom:
+  deploymentBucket:
+    versioning: true
+    accelerate: true
+    tags:
+      - Key: Environment
+  s3Sync:
+    - bucketName: imovelideal
+      # bucketPrefix: assets/
+      localDir: dist/apps/imovel-ideal
+      deleteRemoved: true
+      acl: public-read
+      followSymlinks: true
+      defaultContentType: text/html
+      params:
+        - index.html:
+            CacheControl: 'no-cache'
+        - "*.js":
+            CacheControl: 'public, max-age=31536000'

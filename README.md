@@ -35,6 +35,17 @@ npx nx serve api
 
 -----------------------------------------------------------------------------------------------
 
+### Deploy
+
+1. Instalação do serverless com o comando
+'npm install -g serverless'
+
+2. Para fazer o deploy execute o comando 'serverless deploy' ou 'sls deploy'
+'sls deploy --verbose' para mostrar os eventos em tempo real.
+
+
+-----------------------------------------------------------------------------------------------
+
 
 # OLDER -- DON'T SEE
 

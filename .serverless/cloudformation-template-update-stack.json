@@ -1,0 +1,25 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "The AWS CloudFormation template for this Serverless application",
+  "Resources": {
+    "frontEnd": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": "imovelideal",
+        "AccessControl": "PublicRead",
+        "WebsiteConfiguration": {
+          "IndexDocument": "index.html",
+          "ErrorDocument": "error.html"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "ServerlessDeploymentBucketName": {
+      "Value": "bucketid",
+      "Export": {
+        "Name": "sls-imovel-ideal-main-prod-ServerlessDeploymentBucketName"
+      }
+    }
+  }
+}

@@ -18,11 +18,11 @@ export class RealEstateComponent implements OnInit {
   realEstates: RealEstate[] = [];
 
   constructor(private service: RealEstateService) {}
-    
+
 
   ngOnInit(): void {
     this.service.list(0).subscribe(dados => {
-      this.realEstates = dados;
+      this.realEstates = dados.data;
       this.rodar();
     });
 
@@ -34,7 +34,7 @@ export class RealEstateComponent implements OnInit {
     this.realEstate3 = this.realEstates[2];
 
     setTimeout(() => {
-      
+
       this.setupFullPage();
     }, 500);
   }
@@ -66,14 +66,14 @@ export class RealEstateComponent implements OnInit {
 
         if (this.current == this.realEstates.length-5){
           this.service.list(1).subscribe(dados => {
-            this.realEstates = [...this.realEstates,...dados];
+            this.realEstates = [...this.realEstates,...dados.data];
           })
         }
 
         this.current += direction == 'down' ? +1 : -1;
 
         return ;
-        
+
       }
     });
   }

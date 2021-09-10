@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 })
 export class RealEstateService {
 
-  private readonly API = 'http://localhost:3000/data';
+  private readonly API = '/assets/imoveis.json';
 
   constructor(private http: HttpClient) {
 
@@ -22,5 +22,4 @@ export class RealEstateService {
   }
 
 }
-
 

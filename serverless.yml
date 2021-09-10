@@ -2,12 +2,11 @@ app: imovelideal
 plugins:
   - serverless-s3-sync
   - serverless-deployment-bucket
-
 service: imovel-ideal-main
 
 provider:
   deploymentBucket:
-    name: BucketID
+    name: bucketid
   name: aws
   stage: prod
   region: sa-east-1

@@ -1,0 +1,129 @@
+{
+  "service": {
+    "service": "imovel-ideal-main",
+    "serviceObject": {
+      "name": "imovel-ideal-main"
+    },
+    "provider": {
+      "deploymentBucket": "bucketid",
+      "name": "aws",
+      "stage": "prod",
+      "region": "sa-east-1",
+      "iamRoleStatements": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:*"
+          ],
+          "Resource": "arn:aws:s3:::imovelideal"
+        }
+      ],
+      "versionFunctions": true,
+      "deploymentBucketObject": {
+        "name": "bucketid"
+      },
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "frontEnd": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "BucketName": "imovelideal",
+              "AccessControl": "PublicRead",
+              "WebsiteConfiguration": {
+                "IndexDocument": "index.html",
+                "ErrorDocument": "error.html"
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": "bucketid",
+            "Export": {
+              "Name": "sls-imovel-ideal-main-prod-ServerlessDeploymentBucketName"
+            }
+          }
+        }
+      }
+    },
+    "custom": {
+      "deploymentBucket": {
+        "versioning": true,
+        "accelerate": true
+      },
+      "s3Sync": [
+        {
+          "bucketName": "imovelideal",
+          "localDir": "dist/apps/imovel-ideal",
+          "deleteRemoved": true,
+          "acl": "public-read",
+          "followSymlinks": true,
+          "defaultContentType": "text/html",
+          "params": [
+            {
+              "index.html": {
+                "CacheControl": "no-cache"
+              }
+            },
+            {
+              "*.js": {
+                "CacheControl": "public, max-age=31536000"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "plugins": [
+      "serverless-s3-sync",
+      "serverless-deployment-bucket"
+    ],
+    "pluginsData": {},
+    "functions": {},
+    "resources": {
+      "Resources": {
+        "frontEnd": {
+          "Type": "AWS::S3::Bucket",
+          "Properties": {
+            "BucketName": "imovelideal",
+            "AccessControl": "PublicRead",
+            "WebsiteConfiguration": {
+              "IndexDocument": "index.html",
+              "ErrorDocument": "error.html"
+            }
+          }
+        }
+      },
+      "Outputs": {}
+    },
+    "configValidationMode": "warn",
+    "serviceFilename": "serverless.yml",
+    "initialServerlessConfig": {
+      "app": "imovelideal",
+      "plugins": {
+        "$ref": "$[\"service\"][\"plugins\"]"
+      },
+      "service": {
+        "$ref": "$[\"service\"][\"serviceObject\"]"
+      },
+      "provider": {
+        "$ref": "$[\"service\"][\"provider\"]"
+      },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
+      },
+      "custom": {
+        "$ref": "$[\"service\"][\"custom\"]"
+      }
+    },
+    "app": "imovelideal",
+    "layers": {},
+    "isDashboardMonitoringPreconfigured": false
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/imovel-ideal-main/prod/1631237756702-2021-09-10T01:35:56.702Z",
+    "artifact": ""
+  }
+}

@@ -1,0 +1,27 @@
+@import './../../themes';
+
+.section {
+    height: 100vh;
+    background-size: cover;
+    align-items: center;
+}
+
+nb-layout-footer {
+    position: fixed;
+    bottom: 2%;
+    place-self: center;
+}
+
+nb-icon {
+    height: 10vh;
+}
+
+.dados {
+    position: absolute;
+    bottom: 8%;
+    padding: 5%;
+    margin: 10%;
+    // column-count: 2;
+    background-color: #111931;
+    color: #ffffff;
+}

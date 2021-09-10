@@ -31,17 +31,26 @@ npx nx serve api
 
 4. Open endpoint in the browser: http://localhost:3333/api/hello
 
-
-
 -----------------------------------------------------------------------------------------------
 
 ### Deploy
 
-1. Instalação do serverless com o comando
-'npm install -g serverless'
+1. Instalar o serverless:
 
-2. Para fazer o deploy execute o comando 'serverless deploy' ou 'sls deploy'
-'sls deploy --verbose' para mostrar os eventos em tempo real.
+```bash
+npm install -g serverless
+```
+
+2. Para fazer o deploy execute o comando:
+
+```bash
+serverless deploy
+```
+
+- Para mostrar os eventos em tempo real adicione:
+```bash
+--verbose
+```
 
 
 -----------------------------------------------------------------------------------------------

@@ -6,17 +6,8 @@ import { ElasticsearchService } from '@nestjs/elasticsearch';
 export class AppService {
   constructor(private readonly elasticsearchService: ElasticsearchService) {
   }
-  async getData(): Promise<Message> {
-    const data = await this.elasticsearchService.search({
-      index: 'indexname',
-      body: {
-        query: {
-          match_all: {}
-        }
-      }
-    });
-    console.log();
-    return { message: data.body.hits.hits[0]._source.street };
+  getData(): Message {
+    return { message: "olá" };
   }
   
 }

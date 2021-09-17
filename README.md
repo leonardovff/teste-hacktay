@@ -11,25 +11,35 @@ npm install
 
 ### Elastic search usage
 
-1. Up the elastic service
+1. Copy env-example to .env
+
+2. Up the elastic service
 
 ```bash
 docker-compose up -d elastic
 ```
 
-2. Add data to elastic search
+3. Add data to elastic search
 
 ```bash
-curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/indexname/typename/optionalUniqueId" -d "{ \"sku\" : \"4\", \"street\" : \"Avenida Paulista\"}"
+curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/imovel-ideal/real-estate/" -d "{ \"totalPriceRent\" : null, \"priceSale\" : 300000, \"productType\" : \"apartament\", \"neighborhood\" : \"Pitanguinha\", \"isToRent\" : 0, \"isToSell\" : 1, \"state\" : \"AL\", \"city\" : \"Maceió\", \"street\" : \"Avenida Pedro Alvares\", \"number\" : \"223\", \"photos\" : [{\"url:\": \"https://betaimages.lopes.com.br/realestate/med/REO400396/A207BF6D761C2F113158BA5B69EECF7E.JPG\"}, {\"url:\": \"https://betaimages.lopes.com.br/realestate/med/REO400396/10E26BA74B13310994496729186DAD89.JPG\"}]}"
+curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/imovel-ideal/real-estate/" -d "{ \"totalPriceRent\" : 3000, \"priceSale\": 500000, \"productType\" : \"house\", \"neighborhood\" : \"Farol\", \"isToRent\" : 1, \"isToSell\" : 1, \"state\" : \"AL\", \"city\" : \"Maceió\", \"street\" : \"Avenida Fernandes Lima\", \"number\" : \"223\", \"photos\" : [{\"url:\": \"https://betaimages.lopes.com.br/realestate/med/REO400396/A207BF6D761C2F113158BA5B69EECF7E.JPG\"}, {\"url:\": \"https://betaimages.lopes.com.br/realestate/med/REO400396/10E26BA74B13310994496729186DAD89.JPG\"}]}"
+curl -H "Content-Type: application/json" -XPOST "http://localhost:9200/imovel-ideal/real-estate/" -d "{ \"totalPriceRent\" : 2100, \"priceSale\": null, \"productType\" : \"house\", \"neighborhood\" : \"Feitosa\", \"isToRent\" : 1, \"isToSell\" : 0, \"state\" : \"AL\", \"city\" : \"Maceió\", \"street\" : \"Avenida Governador Lamenha\", \"number\" : \"223\", \"photos\" : [{\"url:\": \"https://betaimages.lopes.com.br/realestate/med/REO400396/A207BF6D761C2F113158BA5B69EECF7E.JPG\"}, {\"url:\": \"https://betaimages.lopes.com.br/realestate/med/REO400396/10E26BA74B13310994496729186DAD89.JPG\"}]}"
 ```
 
-3. Run the api
+4. Run the mariadb database
+
+```bash
+docker-compose up -d mariadb
+```
+
+5. Run the api
 
 ```bash
 npx nx serve api
 ```
 
-4. Open endpoint in the browser: http://localhost:3333/api/hello
+6. Open endpoint in the browser: http://localhost:3333/api/hello
 
 -----------------------------------------------------------------------------------------------
 

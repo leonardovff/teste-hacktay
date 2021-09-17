@@ -8,4 +8,24 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - ~/.elastic/:/usr/share/elasticsearch/data
+      - ~/.imovel-ideal/elastic/:/usr/share/elasticsearch/data
+
+  mariadb:
+    image: mariadb
+    restart: always
+    volumes: 
+      - ~/.imovel-ideal/mariadb:/var/lib/mysql 
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+      MARIADB_USER: imovelideal
+      MARIADB_DATABASE: imovelideal
+      MARIADB_PASSWORD: 1234
+    ports:
+      - "3306:3306"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+

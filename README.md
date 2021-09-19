@@ -77,3 +77,10 @@ docker push registry.gitlab.com/imovel-ideal/imovel-ideal/api
 ```
 
 3. Deploy na api via container - puxando o container
+
+```bash
+docker pull registry.gitlab.com/imovel-ideal/imovel-ideal/api
+docker logout
+docker-compose --compatibility up --remove-orphans -d
+docker image prune -f
+```

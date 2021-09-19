@@ -5,7 +5,7 @@ WORKDIR /app
 COPY ./package*.json ./
 RUN npm ci
 COPY . /app
-RUN npm run teste api
+RUN npm run exec api
 
 FROM node:14-alpine
 

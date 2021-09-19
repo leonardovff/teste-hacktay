@@ -10,16 +10,16 @@ import { UserDemand } from './real-estate/user-demand.entity';
 @Module({
   imports: [
     ElasticsearchModule.register({
-      node: 'http://localhost:9200',
+      node: `http://${process.env.ELASTIC_HOST || 'localhost'}:${process.env.ELASTIC_PORT || '9200'}`,
     }), 
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'imovelideal',
-      password: '1234',
-      database: 'imovelideal',
-      entities: [UserDemand],
+      host: process.env.MARIADB_HOST || 'localhost',
+      port: parseInt(process.env.MARIADB_PORT) || 3306,
+      username: process.env.MARIADB_USER || 'imovelideal',
+      password: process.env.MARIADB_PASSWORD || '1234',
+      database: process.env.MARIADB_DATABASE || 'imovelideal',
+      entities: [ UserDemand ],
       synchronize: true,
     }),
     RealEstateModule

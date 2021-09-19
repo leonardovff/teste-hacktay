@@ -9,7 +9,7 @@ import { UserDemand } from './user-demand.entity';
 @Module({
   imports: [
     ElasticsearchModule.register({
-      node: 'http://localhost:9200',
+      node: `http://${process.env.ELASTIC_HOST || 'localhost'}:${process.env.ELASTIC_PORT || '9200'}`,
     }),
     TypeOrmModule.forFeature([UserDemand])
   ],

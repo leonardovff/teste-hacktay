@@ -6,7 +6,7 @@ services:
     environment:
       - discovery.type=single-node
     ports:
-      - "9200:${ELASTIC_PORT}"
+      - 9200:${ELASTIC_PORT}
       - "9300:9300"
     volumes:
       - ~/.imovel-ideal/elastic/:/usr/share/elasticsearch/data
@@ -14,8 +14,8 @@ services:
   mariadb:
     image: mariadb
     restart: always
-    volumes: 
-      - ~/.imovel-ideal/mariadb:/var/lib/mysql 
+    volumes:
+      - ~/.imovel-ideal/mariadb:/var/lib/mysql
     environment:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
       MARIADB_USER: ${MARIADB_USER}
@@ -23,9 +23,11 @@ services:
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     ports:
       - "3306:3306"
-  api: 
+  api:
     image: registry.gitlab.com/imovel-ideal/imovel-ideal/api:latest
     restart: always
+    ports:
+      - "81:3333"
     environment:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_DATABASE: ${MARIADB_DATABASE}

@@ -15,4 +15,4 @@ RUN npm ci --production
 
 EXPOSE 3000
 
-CMD ["node", "dist/apps/api/main.js"]
+CMD ["node", "/app/dist/apps/api/main.js"]

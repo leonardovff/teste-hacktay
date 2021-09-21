@@ -4,10 +4,11 @@ export interface RealEstate {
     neighborhood: string;
     city: string;
     state: string;
-    valueToRent: number;
-    valueToSell: number;
+    valueToRent: string;
+    valueToSell: string;
     sourcePortal: string;
-    photos: string[];
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    attributes: object[];
+    photos: any[];
+    attributes: any[];
+    description: string;
+    priceSale: number;
 }

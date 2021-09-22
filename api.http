@@ -1,5 +1,0 @@
-GET http://localhost:9200/
-
-
-###
-GET HTTP://localhost:3333/api/hello

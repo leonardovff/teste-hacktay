@@ -1,8 +1,9 @@
-import { Controller, Get, NotFoundException, Param } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common';
 
-import { Message, RealEstateData } from '@imovel-ideal/api-interfaces';
+import { Message, RealEstateData, RealEstateDataResponse } from '@imovel-ideal/api-interfaces';
 
 import { RealEstateService } from './real-estate.service';
+import { count } from 'console';
 // import * as uuid from 'uuid';
 // console.log(uuid.v4());
 
@@ -10,8 +11,12 @@ import { RealEstateService } from './real-estate.service';
 export class RealEstateController {
   constructor(private readonly realEstateService: RealEstateService) {}
 
-  @Get('search/:userToken')
-  async getData(@Param('userToken') userToken: string): Promise<RealEstateData> {
+  @Get('search/:userToken/')
+  async getData(
+    @Param('userToken') userToken: string,
+    @Query('page') page: number,
+    @Query('itensPerPage') itensPerPage: number = 20
+  ): Promise<RealEstateDataResponse> {
     const userDemand = await this.realEstateService.getToken(userToken);
     if(!userDemand) {
       throw new NotFoundException('Token not found');
@@ -22,7 +27,8 @@ export class RealEstateController {
       neighborhood: userDemand.demandNeighborhood,
       transationType: userDemand.demandType,
       productType: userDemand.demandPoductType,
-      maxValue: userDemand.demandMaxValue
-    });
+      maxValue: userDemand.demandMaxValue,
+    }, page, itensPerPage );
+    
   }
 }

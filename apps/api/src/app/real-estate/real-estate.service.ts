@@ -1,16 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { RealEstateData, RealEstateDataResponse } from '@imovel-ideal/api-interfaces';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-import { UserDemand } from './user-demand.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Check, DataTypeNotSupportedError, Index, MetadataWithSuchNameAlreadyExistsError, Repository } from 'typeorm';
-import { format } from 'path';
-import { totalmem } from 'os';
-import { __asyncValues, __param, __values } from 'tslib';
-import { count, identity } from 'rxjs';
-import { truncate } from 'fs';
-import { RequestParams } from '@elastic/elasticsearch';
-import { Console } from 'console';
+import { Repository } from 'typeorm';
+
+import { RealEstateDataResponse } from '@imovel-ideal/api-interfaces';
+
+import { UserDemand } from './user-demand.entity';
 
 @Injectable()
 export class RealEstateService {
@@ -71,7 +66,7 @@ export class RealEstateService {
       from: itensPerPage * page,
       size: itensPerPage
     });
-    console.log(data.body.hits.total.value);
+    
     return {
        metadata: {
         currentPage:parseInt(page),
@@ -81,12 +76,9 @@ export class RealEstateService {
       },
       data: data.body.hits.hits.map(data => data._source), 
     };
-
   }
 
-
   getToken(userToken): Promise<UserDemand> {
-    console.log(userToken)
     return this.userDemandRepository.findOne({
       where: {
         userToken,

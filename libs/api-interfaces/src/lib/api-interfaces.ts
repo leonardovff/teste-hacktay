@@ -13,3 +13,14 @@ export interface RealEstateData {
   isToSell: boolean;
   photos: string[];
 }
+interface PaginationMetadataResponse {
+  currentPage: number,
+  totalPages: number,
+  itensPerPage: number,
+  totalItens: number
+
+}
+export interface RealEstateDataResponse {
+  data: RealEstateData[],
+  metadata: PaginationMetadataResponse 
+}

@@ -2,8 +2,8 @@ export interface RealEstate {
     id: number;
     description: string;
     sourcePortal: string;
-    PriceSale: number;
-    PriceRent: number;
+    priceSale: number;
+    priceRent: number;
     totalPriceRent: number;
     iptuValue: number;
     condominiumValue: number;

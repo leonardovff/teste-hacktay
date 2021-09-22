@@ -12,7 +12,7 @@
     [direction]="'vertical'"
     [navigation]="true"
     [virtual]="true"
-    (slideChange)="addPage($event)"
+    (slideChange)="realEstateChanged($event)"
   >
 
 
@@ -29,14 +29,12 @@
         </swiper>
         <div class="detalhes" (click)="toggleCollapse()">
             <div *ngIf="isCollapsed">
-                <p>A venda por <strong>R$ {{ slide!.PriceSale }}</strong> em <strong>{{ slide!.neighborhood }}</strong>.</p>
+                <p>A venda por <strong>{{ slide!.priceSale | currency:'BRL' }}</strong>.</p>
             </div>
             <div *ngIf="!isCollapsed">
-                <p>Preço de Venda: <strong>R$ {{ slide!.PriceSale }}</strong></p>
+                <p>Preço de Venda: <strong>R$ {{ slide!.priceSale | currency:'BRL' }}</strong></p>
                 <p>Endereço: {{slide!.street}}, {{slide!.number}}, {{slide!.neighborhood}}</p>
                 <p>Cidade: {{slide!.city}} Estado: {{slide!.state}}</p>
-                <!-- <p><img src="./../../assets/icons/metros.svg" alt="">: {{slide!.attributes[0].value}}</p>
-                <p><img src="./../../assets/icons/quartos.svg" alt=""> {{slide!.attributes[1].value}}</p> -->
             </div>
 
         </div>

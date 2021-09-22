@@ -8,8 +8,8 @@ import { tap } from 'rxjs/operators';
 })
 export class RealEstateService {
 
-  // private readonly API = '/assets/imoveis.json';
-  private readonly API = 'http://20.38.5.27:81/api/real-estate/search/15354faeufbidaifjbn';
+  private readonly API = '/assets/imoveis.json';
+  // private readonly API = 'http://20.38.5.27:81/api/real-estate/search/15354faeufbidaifjbn';
   // private readonly API = '/v1/real-estate/search/A!^23ds@as@!#'
 
   constructor(private http: HttpClient) {

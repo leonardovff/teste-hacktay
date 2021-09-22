@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { RealEstateModule } from './real-estate/real-estate.module';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
+import { SwiperModule } from 'swiper/angular';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     NbLayoutModule, 
     AppRoutingModule,
     RealEstateModule,
-    NbEvaIconsModule
+    NbEvaIconsModule,
+    SwiperModule
   ],
   providers: [],
   bootstrap: [AppComponent],

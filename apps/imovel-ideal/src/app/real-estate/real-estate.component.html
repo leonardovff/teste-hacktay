@@ -7,16 +7,17 @@
     </i>
 </header>
 
-<swiper
+<swiper 
     class="mySwiper swiper-v"
     [direction]="'vertical'"
     [navigation]="true"
     [virtual]="true"
+    (slideChange)="addPage($event)"
   >
 
 
     <ng-template swiperSlide *ngFor="let slide of realEstates">
-      <swiper
+        <swiper
           class="mySwiper2 swiper-h"
           [direction]="'horizontal'"
           [pagination]="{
@@ -28,10 +29,10 @@
         </swiper>
         <div class="detalhes" (click)="toggleCollapse()">
             <div *ngIf="isCollapsed">
-                <p>A venda por <strong>R$ {{ slide!.valueToSell }}</strong> em <strong>{{ slide!.neighborhood }}</strong>.</p>
+                <p>A venda por <strong>R$ {{ slide!.PriceSale }}</strong> em <strong>{{ slide!.neighborhood }}</strong>.</p>
             </div>
             <div *ngIf="!isCollapsed">
-                <p>Preço de Venda: <strong>R$ {{ slide!.valueToSell }}</strong></p>
+                <p>Preço de Venda: <strong>R$ {{ slide!.PriceSale }}</strong></p>
                 <p>Endereço: {{slide!.street}}, {{slide!.number}}, {{slide!.neighborhood}}</p>
                 <p>Cidade: {{slide!.city}} Estado: {{slide!.state}}</p>
                 <!-- <p><img src="./../../assets/icons/metros.svg" alt="">: {{slide!.attributes[0].value}}</p>
@@ -42,11 +43,11 @@
     </ng-template>
 </swiper>
 
-<footer>
+<div class="controlers-action">
     <i class="dislike">
         <img src="./../../assets/icons/Dislike.svg" alt="">
     </i>
     <i class="like">
         <img src="./../../assets/icons/Like.svg" alt="">
     </i>
-</footer>
+</div>

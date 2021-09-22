@@ -5,7 +5,7 @@ WORKDIR /app
 COPY ./package*.json ./
 RUN npm ci
 COPY . /app
-RUN npm run exec api
+RUN npm run nx build api
 
 FROM node:14-alpine
 

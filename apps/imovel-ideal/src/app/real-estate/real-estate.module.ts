@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RealEstateComponent } from './real-estate.component';
-import { NbButtonModule, NbCardModule, NbIconModule, NbLayoutModule } from '@nebular/theme';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [RealEstateComponent],
   imports: [
     CommonModule,
-    NbLayoutModule,
-    NbButtonModule,
-    NbIconModule,
-    NbCardModule
+    SwiperModule
   ],
   exports: [
     RealEstateComponent

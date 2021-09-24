@@ -1,52 +1,51 @@
-<nb-layout>
-    <nb-layout-column>
-        <div id="fullpage">
-            <section
-              class="section" 
-              style="background-image: url('{{realEstate1?.photos[0]}}');">
-              <div class="dados">
-                    {{ realEstate1?.street }}, {{ realEstate1?.number }}<br>
-                    {{ realEstate1?.neighborhood }}, {{ realEstate1?.city }}/{{ realEstate1?.state }}<br>
-                    Aluguel: {{ realEstate1?.valueToRent }}<br>
-                    Venda: {{ realEstate1?.valueToSell }}<br>
-                    <div *ngFor="let atributo of realEstate1?.attributes">
-                        {{ atributo.name }}: {{ atributo.value }}
-                    </div>
-                    Origem: {{ realEstate1?.sourcePortal }}
-                </div>
-            </section>
-            <section
-            class="section" 
-            style="background-image: url('{{realEstate2?.photos[0]}}');">
-            <div class="dados">
-                  {{ realEstate2?.street }}, {{ realEstate2?.number }}<br>
-                  {{ realEstate2?.neighborhood }}, {{ realEstate2?.city }}/{{ realEstate2?.state }}<br>
-                  Aluguel: {{ realEstate2?.valueToRent }}<br>
-                  Venda: {{ realEstate2?.valueToSell }}<br>
-                  <div *ngFor="let atributo of realEstate2?.attributes">
-                      {{ atributo.name }}: {{ atributo.value }}
-                  </div>
-                  Origem: {{ realEstate2?.sourcePortal }}
-              </div>
-          </section>
-          <section
-          class="section" 
-          style="background-image: url('{{realEstate3?.photos[0]}}');">
-          <div class="dados">
-                {{ realEstate3?.street }}, {{ realEstate3?.number }}<br>
-                {{ realEstate3?.neighborhood }}, {{ realEstate3?.city }}/{{ realEstate3?.state }}<br>
-                Aluguel: {{ realEstate3?.valueToRent }}<br>
-                Venda: {{ realEstate3?.valueToSell }}<br>
-                <div *ngFor="let atributo of realEstate3?.attributes">
-                    {{ atributo.name }}: {{ atributo.value }}
-                </div>
-                Origem: {{ realEstate3?.sourcePortal }}
+<header>
+    <i class="filtros">
+        <img src="./../../assets/icons/filtros.svg" alt="">
+    </i>
+    <i class="user">
+        <img src="./../../assets/icons/person.svg" alt="">
+    </i>
+</header>
+
+<swiper 
+    class="mySwiper swiper-v"
+    [direction]="'vertical'"
+    [navigation]="true"
+    [virtual]="true"
+    (slideChange)="realEstateChanged($event)"
+  >
+
+
+    <ng-template swiperSlide *ngFor="let slide of realEstates">
+        <swiper
+          class="mySwiper2 swiper-h"
+          [direction]="'horizontal'"
+          [pagination]="{
+            clickable: true
+          }"
+        >
+          <ng-template swiperSlide *ngFor="let photo of slide!.photos"><img [src]="photo" alt=""></ng-template>
+
+        </swiper>
+        <div class="detalhes" (click)="toggleCollapse()">
+            <div *ngIf="isCollapsed">
+                <p>A venda por <strong>{{ slide!.priceSale | currency:'BRL' }}</strong>.</p>
             </div>
-        </section>
+            <div *ngIf="!isCollapsed">
+                <p>Preço de Venda: <strong>R$ {{ slide!.priceSale | currency:'BRL' }}</strong></p>
+                <p>Endereço: {{slide!.street}}, {{slide!.number}}, {{slide!.neighborhood}}</p>
+                <p>Cidade: {{slide!.city}} Estado: {{slide!.state}}</p>
+            </div>
+
         </div>
-    </nb-layout-column>
-    <nb-layout-footer>
-        <nb-icon icon="close" status="danger"></nb-icon>
-        <nb-icon icon="heart" status="success"></nb-icon>
-    </nb-layout-footer>
-</nb-layout>
+    </ng-template>
+</swiper>
+
+<div class="controlers-action">
+    <i class="dislike">
+        <img src="./../../assets/icons/Dislike.svg" alt="">
+    </i>
+    <i class="like">
+        <img src="./../../assets/icons/Like.svg" alt="">
+    </i>
+</div>

@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { RealEstateData } from '@imovel-ideal/api-interfaces';
 import { ElasticsearchService } from '@nestjs/elasticsearch';
-import { UserDemand } from './user-demand.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
+import { RealEstateDataResponse } from '@imovel-ideal/api-interfaces';
+
+import { UserDemand } from './user-demand.entity';
 
 @Injectable()
 export class RealEstateService {
@@ -13,11 +15,12 @@ export class RealEstateService {
     private userDemandRepository: Repository<UserDemand>,
   ) {
   }
-  async getData(userDemand): Promise<RealEstateData> {
+  async getData(userDemand,page,itensPerPage): Promise<RealEstateDataResponse> {
     const query = {
       bool: {
         must: []
       }
+      
     };
 
     if(userDemand.state){
@@ -55,16 +58,27 @@ export class RealEstateService {
     const data = await this.elasticsearchService.search({
       index: 'imovel-ideal',
       type: 'real-estate',
+    
       body: {
-        query
+        query,
       },
-      from: 0,
-      size: 20
+      
+      from: itensPerPage * page,
+      size: itensPerPage
     });
-    return data.body.hits.hits.map(data => data._source);
+    
+    return {
+       metadata: {
+        currentPage:parseInt(page),
+        totalPages: Math.ceil(data.body.hits.total.value / itensPerPage) ,
+        itensPerPage: parseInt(itensPerPage),
+        totalItens: data.body.hits.total.value
+      },
+      data: data.body.hits.hits.map(data => data._source), 
+    };
   }
+
   getToken(userToken): Promise<UserDemand> {
-    console.log(userToken)
     return this.userDemandRepository.findOne({
       where: {
         userToken,

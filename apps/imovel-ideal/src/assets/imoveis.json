@@ -1,183 +1,222 @@
 {
   "data": [
     {
+      "id": 1,
       "street": "Rua Doutor Homem De Melo",
       "number": "200",
       "neighborhood": "Perdizes",
       "city": "São Paulo",
       "state": "SP",
-      "valueToRent": 4613,
-      "valueToSell": 695000,
+      "priceRent": 4613,
+      "priceSale": 695000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO310875/EFF3018EE4BE7520C584AA01504C4954.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO310875/B7D3508DD015700510F1952B62192499.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO310875/9F1124DFEDC321138A7FE5F199566C5C.JPG"
                 ],
       "attributes": [
-                  {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
-                ]
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "2"},
+                  {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54m²"},
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "2"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"},
+                  {"type": "bicycle_attr", "name": "Bicicletário", "order": 1, "value": true},
+                  {"type": "gym_attr", "name": "Academia", "order": 1, "value": true}
+                ],
+      "description": "Entre as Avenidas 9 de Julho, 23 de Maio, Brigadeiro Luis Antonio e Paulista. Localizado na Bela Vista, região mais procurada para se morar, o Bella Vista Pauliceia fica a poucos minutos do metrô e da estação de ônibus."
     },
     {
+      "id": 2,
       "street": "Rua Doutor Rafael De Barros",
       "number": "200",
       "neighborhood": "Paraíso",
       "city": "São Paulo",
       "state": "SP",
-      "valueToRent": 33300,
-      "valueToSell": 6700000,
+      "priceRent": 33300,
+      "priceSale": 6700000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO400396/A207BF6D761C2F113158BA5B69EECF7E.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO400396/10E26BA74B13310994496729186DAD89.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO400396/316B6E034ACA69A8BADAD09D309C3B5D.JPG"
                 ],
       "attributes": [
-                  {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
-                ]
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "3"},
+                  {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "56m²"},
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "1"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
+                ],
+      "description": "Entre as Avenidas 9 de Julho, 23 de Maio, Brigadeiro Luis Antonio e Paulista. Localizado na Bela Vista, região mais procurada para se morar, o Bella Vista Pauliceia fica a poucos minutos do metrô e da estação de ônibus."
+
     },
     {
+      "id": 3,
       "street": "Rua Guararapes",
       "number": "200",
       "neighborhood": "Brooklin",
       "city": "São Paulo",
       "state": "SP",
-      "valueToRent": 0,
-      "valueToSell": 1550000,
+      "priceRent": 0,
+      "priceSale": 1550000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO487648/09CA7E4B786220B9917CCD3E976B656C.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO487648/FF04FF523DA63A00FC7008C18CA5DE8F.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO487648/7A43162979D5A1A22D422A85E8149B4A.JPG"
                 ],
       "attributes": [
-                  {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
-                ]
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "4"},
+                  {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "100m²"},
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "3"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
+                ],
+      "description": "Entre as Avenidas 9 de Julho, 23 de Maio, Brigadeiro Luis Antonio e Paulista. Localizado na Bela Vista, região mais procurada para se morar, o Bella Vista Pauliceia fica a poucos minutos do metrô e da estação de ônibus."
+
     },
     {
+      "id": 4,
       "street": "Rua Vargem Do Cedro",
       "number": "200",
       "neighborhood": "Perdizes",
       "city": "São Paulo",
       "state": "SP",
-      "valueToRent": 0,
-      "valueToSell": 893000,
+      "priceRent": 0,
+      "priceSale": 893000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO113414/D45797D69A4338ADAA59F3DBF218BB75.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO113414/48E32733ADD7CFA379BE98BD76891A77.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO113414/2D0FB9E19E4FAD95EBD4DC9D53CF40EE.JPG"
                 ],
       "attributes": [
-                  {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
-                ]
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "3"},
+                  {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "80m²"},
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "2"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
+                ],
+      "description": "Entre as Avenidas 9 de Julho, 23 de Maio, Brigadeiro Luis Antonio e Paulista. Localizado na Bela Vista, região mais procurada para se morar, o Bella Vista Pauliceia fica a poucos minutos do metrô e da estação de ônibus."
+
     },
     {
+      "id": 5,
       "street": "Rua Empresário Carlos Cansanção Guimarães",
       "number": "200",
       "neighborhood": "Jardim Petrópolis",
       "city": "Maceió",
       "state": "AL",
-      "valueToRent": 0,
-      "valueToSell": 3000000,
+      "priceRent": 0,
+      "priceSale": 3000000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO566850/C4C7796EBB19A6AC2B166E26CF6E106C.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO566850/4691A97FC23ED49256C3026C550571AC.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO566850/176C3A457B6982A3E7F4D86679B3A1F7.JPG"
                 ],
       "attributes": [
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "2"},
                   {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "2"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
                 ]
     },
     {
+      "id": 6,
       "street": "Avenida Senador Rui Palmeira ",
       "number": "200",
       "neighborhood": "Ponta Verde",
       "city": "Maceió",
       "state": "AL",
-      "valueToRent": 0,
-      "valueToSell": 210000,
+      "priceRent": 0,
+      "priceSale": 210000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO572261/DC642889B6C6AF7BD50F2EE03B65BF33.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO572261/F16BF5E73D9AEE0F30C58EB9D1E3E155.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO572261/F18B19D74182D7FE2B0F51114EC61525.JPG"
                 ],
       "attributes": [
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "2"},
                   {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "2"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
                 ]
     },
     {
+      "id": 7,
       "street": "Avenida Doutor José Sampaio Luz",
       "number": "200",
       "neighborhood": "Ponta Verde",
       "city": "Maceió",
       "state": "AL",
-      "valueToRent": 33233,
-      "valueToSell": 7000000,
+      "priceRent": 33233,
+      "priceSale": 7000000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO33189/s4.png",
                   "https://betaimages.lopes.com.br/realestate/med/REO33189/us7.png",
                   "https://betaimages.lopes.com.br/realestate/med/REO33189/IMG_0926.JPG"
                 ],
       "attributes": [
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "2"},
                   {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "2"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
                 ]
     },
     {
+      "id": 8,
       "street": "Rua Presidente Antônio Cândido",
       "number": "200",
       "neighborhood": "Alto Da Lapa",
       "city": "São Paulo",
       "state": "SP",
-      "valueToRent": 0,
-      "valueToSell": 1650000,
+      "priceRent": 0,
+      "priceSale": 1650000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO591756/62D96E731843E3AA06345222C1112D61.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO591756/9A807FA5EF23FEFCB57ACCD6DF39F537.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO591756/3EAC51F1562AB50A5B8D823A94B42EF4.JPG"
                 ],
       "attributes": [
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "2"},
                   {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "2"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
                 ]
     },
     {
+      "id": 9,
       "street": "Rua Brentano",
       "number": "200",
       "neighborhood": "Vila Leopoldina",
       "city": "São Paulo",
       "state": "SP",
-      "valueToRent": 0,
-      "valueToSell": 1630000,
+      "priceRent": 0,
+      "priceSale": 1630000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO573181/5708A4F8D94CAAE15B218C5F145FD7F7.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO573181/A21D0B6F3F08B5F87520A1DDCD521C45.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO573181/5FAC943EBDD257085BD4B302F6330EA2.JPG"
                 ],
       "attributes": [
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "2"},
                   {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "2"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
                 ]
     },
     {
+      "id": 10,
       "street": "Rua Leão Coroado",
       "number": "200",
       "neighborhood": "Vila Beatriz",
       "city": "São Paulo",
       "state": "SP",
-      "valueToRent": 0,
-      "valueToSell": 2100000,
+      "priceRent": 0,
+      "priceSale": 2100000,
       "sourcePortal": "https://www.lopes.com.br/",
       "photos": ["https://betaimages.lopes.com.br/realestate/med/REO570065/06B480EEF444C86DFFE8F64A8E667EB1.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO570065/29D562C34B389EA3AFC7B7166CABF112.JPG",
                   "https://betaimages.lopes.com.br/realestate/med/REO570065/7652A7D2AB6569E9F00FB6613D5E5AB2.JPG"
                 ],
       "attributes": [
+                  {"type": "rooms_attr", "name": "Quartos", "order": 1, "value": "2"},
                   {"type": "area_attr", "name": "Área do imóvel", "order": 1, "value": "54 a 56m²"},
-                  {"type": "stage_attr", "name": "Estágio da obra", "order": 2, "value": "Não iniciada"}
+                  {"type": "garagem_attr", "name": "Garagem", "order": 1, "value": "2"},
+                  {"type": "security_attr", "name": "Segurança", "order": 1, "value": "24hrs"}
                 ]
     }
   ],

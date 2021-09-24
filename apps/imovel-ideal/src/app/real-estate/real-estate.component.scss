@@ -1,27 +1,83 @@
-@import './../../themes';
-
-.section {
-    height: 100vh;
-    background-size: cover;
-    align-items: center;
+.swiper {
+  width: 100%;
+  height: 100%;
 }
 
-nb-layout-footer {
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  /* Center slide text vertically */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+header {
+    position: fixed;
+    top: 5%;
+    width: 100%;
+    z-index: 2;
+}
+
+.filtros {
+    position: fixed;
+    left: 10%;
+}
+
+.user {
+    position: fixed;
+    right: 10%;
+}
+
+div.controlers-action {
     position: fixed;
     bottom: 2%;
-    place-self: center;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
 }
 
-nb-icon {
-    height: 10vh;
+div.controlers-action i {
+    margin: 15%;
 }
 
-.dados {
+.detalhes {
     position: absolute;
-    bottom: 8%;
-    padding: 5%;
-    margin: 10%;
-    // column-count: 2;
-    background-color: #111931;
-    color: #ffffff;
+    width: 80%;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    color: white;
+    bottom: 18%;
+    margin: 2% 10%;
+    z-index: 2;
+    text-align: center;
 }
+ 
+
+span {
+    margin: 2%;;
+}
+
+.atributos {
+    columns: 2;
+}
+
+
+

@@ -1,13 +1,20 @@
 export interface RealEstate {
+    id: number;
+    description: string;
+    sourcePortal: string;
+    priceSale: number;
+    priceRent: number;
+    totalPriceRent: number;
+    iptuValue: number;
+    condominiumValue: number;
+    isToRent: boolean;
+    isToSell: boolean;
+    productType: string;
+    state: string;
+    city: string;
+    neighborhood: string;
     street: string;
     number: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    valueToRent: number;
-    valueToSell: number;
-    sourcePortal: string;
     photos: string[];
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    attributes: object[];
+    attributes: any[];
 }

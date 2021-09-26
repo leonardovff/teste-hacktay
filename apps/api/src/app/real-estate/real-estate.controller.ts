@@ -30,4 +30,9 @@ export class RealEstateController {
       maxValue: userDemand.demandMaxValue,
     }, page, itensPerPage );  
   }
+
+  @Get('bulk')
+  async teste(): Promise<string>{
+    return this.realEstateService.bulkData();
+  }
 }

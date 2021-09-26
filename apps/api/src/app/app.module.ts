@@ -4,6 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { BImovelCarac } from './real-estate/datawarehouse/b_imovel_carac';
+import { DImovel } from './real-estate/datawarehouse/d-imovel.';
+import { DCaract } from './real-estate/datawarehouse/d_caract';
+import { SnapshotImovelFotos } from './real-estate/datawarehouse/snapshot_imovel_fotos';
 import { RealEstateModule } from './real-estate/real-estate.module';
 import { UserDemand } from './real-estate/user-demand.entity';
 
@@ -19,8 +23,11 @@ import { UserDemand } from './real-estate/user-demand.entity';
       username: process.env.MARIADB_USER || 'imovelideal',
       password: process.env.MARIADB_PASSWORD || '1234',
       database: process.env.MARIADB_DATABASE || 'imovelideal',
-      entities: [ UserDemand ],
-      synchronize: true,
+      entities: [ 
+        UserDemand, DImovel, SnapshotImovelFotos,
+        DCaract, BImovelCarac
+      ],
+      synchronize: false,
     }),
     RealEstateModule
   ],

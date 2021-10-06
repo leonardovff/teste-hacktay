@@ -14,7 +14,7 @@ import { UserDemand } from './real-estate/user-demand.entity';
 @Module({
   imports: [
     ElasticsearchModule.register({
-      node: `http://${process.env.ELASTIC_HOST || 'localhost'}:${process.env.ELASTIC_PORT || '9200'}`,
+      node: ``,
     }), 
     TypeOrmModule.forRoot({
       type: 'mysql',

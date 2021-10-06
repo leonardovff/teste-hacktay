@@ -10,29 +10,27 @@ import { RealEstateService } from './real-estate.service';
 export class RealEstateController {
   constructor(private readonly realEstateService: RealEstateService) {}
 
-  @Get('search/:userToken/')
+  @Get('search/:sku/')
   async getData(
-    @Param('userToken') userToken: string,
+    @Param('sku') sku: string,
     @Query('page') page: number,
     @Query('itensPerPage') itensPerPage = 20
-  ): Promise<RealEstateDataResponse> {
-    const userDemand = await this.realEstateService.getToken(userToken);
-    if(!userDemand) {
-      throw new NotFoundException('Token not found');
+  ): Promise<any> {
+    console.log('entrou');
+    // if(!userDemand) {
+    //   throw new NotFoundException('Token not found');
+    // }
+    try{
+      return await this.realEstateService.getData(sku)
+    } catch(e ) {
+      console.log(e);
     }
 
-    return this.realEstateService.getData({
-      state: userDemand.demandState,
-      city: userDemand.demandCity,
-      neighborhood: userDemand.demandNeighborhood,
-      transationType: userDemand.demandType,
-      productType: userDemand.demandPoductType,
-      maxValue: userDemand.demandMaxValue,
-    }, page, itensPerPage );  
+    return null;  
   }
 
-  @Get('bulk')
-  async teste(): Promise<string>{
-    return this.realEstateService.bulkData();
-  }
+  // @Get('bulk')
+  // async teste(): Promise<string>{
+  //   return this.realEstateService.bulkData();
+  // }
 }

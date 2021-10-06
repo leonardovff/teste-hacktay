@@ -10,9 +10,26 @@ import { DImovel } from './datawarehouse/d-imovel.';
 import { SnapshotImovelFotos } from './datawarehouse/snapshot_imovel_fotos';
 import { BImovelCarac } from './datawarehouse/b_imovel_carac';
 import { DCaract } from './datawarehouse/d_caract';
+import * as sm from 'sequencematcher';
+import * as difflib from 'difflib';
 
 function randomIntFromInterval(min, max) { // min and max included 
   return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function cosinesim(A,B){
+  let dotproduct=0;
+  let mA=0;
+  let mB=0;
+  for(let i = 0; i < A.length; i++){ // here you missed the i++
+      dotproduct += (A[i] * B[i]);
+      mA += (A[i]*A[i]);
+      mB += (B[i]*B[i]);
+  }
+  mA = Math.sqrt(mA);
+  mB = Math.sqrt(mB);
+  const similarity = (dotproduct)/((mA)*(mB)) // here you needed extra brackets
+  return similarity;
 }
 
 @Injectable()
@@ -32,131 +49,142 @@ export class RealEstateService {
     private manager: EntityManager
   ) {
   }
-  
+  hashTipoImovel = {};
+  hashTipoImoveLQtd = 1;
+ 
+  private tratarImovel(imovel) {
+    // const tipoImovel = this.getValueHash(
+    //   'hashTipoImovel',
+    //   'hashTipoImovelQtd',      
+    //   imovel.product.type,
+    // )
+    const typology = imovel.product_detail.detail.typology;
+    // tem duas areas - living e total
+    if(!typology){
+      return [0, 0, 0, 0, 0, 0, 0]
+    }
 
-  async bulkData(): Promise<string> {
-    const imoveis = (await this.dImovelRepository.find()).splice(0, 1000);
-    imoveis.forEach(async imovel => {
-
-      if(!imovel.numero){
-        return false;
-      }
-      const atributosBase = await this.bImovelRepository
-      .find({
-        where: {
-          d_imovel_cod_imovel: imovel.cod_imovel,
-        },
-      });
-      const arraysCaractsCode = atributosBase ? atributosBase.map(caract => caract.d_caract_cod_caract) : [];
+    const location = imovel.product_detail.real_estate_detail && imovel.product_detail.real_estate_detail.geometry 
+      && imovel.product_detail.real_estate_detail.geometry.location ? imovel.product_detail.real_estate_detail.geometry.location : {lat: 0, lon:  0}; 
       
-      const caracts = await this.manager.createQueryBuilder(DCaract, "d_caract")
-      .where("d_caract.cod_caract IN (:authors)", { authors: arraysCaractsCode })
-      .getMany();
-
-      const caractsTratados = caracts ? caracts.map(caract => {
-        return {
-          type: caract.chave,
-          name: caract.descricao,
-          value: caract.valor
+    const areaTemp = typology.areas.find(area => area.type == "total_area");
+    const area = areaTemp ? areaTemp.value : 0;
+    const arraySku1 = [
+      area, 
+      typeof typology.bedroom_qty == "undefined" ? 0 : typology.bedroom_qty,
+      typeof typology.suite_qty == "undefined" ? 0 : typology.suite_qty,
+      typeof typology.bathroom_qty == "undefined" ? 0 : typology.bathroom_qty,
+      typeof typology.parking_spot_qty == "undefined" ? 0 : typology.parking_spot_qty,
+      typeof typology.total_parking_qty == "undefined" ? 0 : typology.total_parking_qty,
+      typeof typology.total_bathroom_qty == "undefined" ? 0 : typology.total_bathroom_qty,
+      location.lat,
+      location.lon
+    ]
+    return arraySku1;
+  } 
+  getValueHash(hash, qtd, value){
+    if(!this[hash][value]){
+      this[hash][value] = this[qtd]; 
+      this[qtd]++;
+    } 
+    return this[hash][value];
+  } 
+  async getData(sku: string): Promise<any> {
+    const dataSku1Temp = await this.elasticsearchService.search({
+      index: 'products_v12',
+      body: {
+        query: {
+          "bool": {
+            "must": [{ "match": { "product.sku": sku } }],
+          }
         }
-      }) : [];
-      const priceRent = imovel.para_alugar == 1 ? randomIntFromInterval(1000, 3000) : null
-      const photos = await this.photosRepository.find({
-        where: {
-          d_imovel_cod_imovel: imovel.cod_imovel,
-        },
-      });
-      const photosTratadas = photos ? photos.splice(0, 8).map(photo => photo.url) : []; 
-      await this.elasticsearchService.index({
-        index: 'imovel-ideal',
-        id: imovel.cod_imovel.toString(), 
-        type: 'real-estate', // uncomment this line if you are using Elasticsearch ≤ 6
-        body: {
-          description: imovel.descricao_resumida.substring(0, 400),
-          sourcePortal: 'www.lopes.com.br',
-          priceSale: imovel.preco_venda_atual,
-          priceRent: priceRent,
-          totalPriceRent: priceRent ? priceRent + imovel.preco_condominio_atual : null,
-          iptuValue: imovel.preco_iptu_atual,
-          condominiumValue: imovel.preco_condominio_atual,
-          isToRent: imovel.para_alugar,
-          isToSell: imovel.para_vender,
-          productType: imovel.tipo_imovel,
-          state: imovel.estado,
-          city: imovel.cidade,
-          neighborhood: imovel.bairro,
-          street: imovel.rua,
-          number: imovel.numero,
-          photos: photosTratadas,
-          attributes: caractsTratados
+      }
+    });
+    const skuParaAcharDuplicado =  dataSku1Temp.body.hits.hits[0]._source;
+    const arraySku1 = this.tratarImovel( 
+      skuParaAcharDuplicado
+    );
+    const addressSku1 = skuParaAcharDuplicado['product_detail'].real_estate_detail.address;
+    const bairroSku1 = addressSku1.find(address => address.type=="neighborhood").name;
+    const citySku1 = addressSku1.find(address => address.type=="city").name;
+    const must = [
+      {
+        nested: {
+          path: "product_detail.real_estate_detail.address",
+          query: {
+            bool: {
+                must: [
+                { term: {"product_detail.real_estate_detail.address.name.keyword": bairroSku1} },
+                { term: {"product_detail.real_estate_detail.address.type.keyword": "neighborhood"} }
+              ]
+            }
+          }
+        }
+      },
+      {
+        nested: {
+          path: "product_detail.real_estate_detail.address",
+          query: {
+            bool: {
+              must: [
+                { term: {"product_detail.real_estate_detail.address.name.keyword": citySku1} },
+                { term: {"product_detail.real_estate_detail.address.type.keyword": "city"} }
+              ]
+            }
+          }
+        }
+      }
+    ]
+    const dataOthers = await this.elasticsearchService.search({
+      index: 'products_v12',
+      body: {
+        query: {
+          bool: {
+            must,
+            filter: [{ term: { "product.type": "real_estate"   }}]
+          }
+        }
+      },
+      from: 0,
+      size: 10000
+    });
+   
+    const dadosDepois = dataOthers.body?.hits?.hits
+      .map(imovelParaComparar => {
+        const imovelParaCompararData = imovelParaComparar._source;
+        const arraySku2 = this.tratarImovel( 
+          imovelParaCompararData
+        );
+
+        const imovelParaCompararDataDescription = imovelParaCompararData.product_detail.real_estate_detail && 
+          imovelParaCompararData.product_detail.real_estate_detail.description ? imovelParaCompararData.product_detail.real_estate_detail.description : ''; 
+    
+        const skuParaAcharDuplicadoDescription = skuParaAcharDuplicado.product_detail.real_estate_detail && 
+        skuParaAcharDuplicado.product_detail.real_estate_detail.description ? skuParaAcharDuplicado.product_detail.real_estate_detail.description : ''; 
+
+        const similaridadeDescricao = new difflib
+        .SequenceMatcher(null, imovelParaCompararDataDescription, skuParaAcharDuplicadoDescription)
+        .ratio();
+        const isDescricaoSemelhante = similaridadeDescricao > 0.8;
+        const similaridade = isDescricaoSemelhante ? 
+          cosinesim([...arraySku2, 0], [...arraySku1, 0]) :  
+          cosinesim([...arraySku2, 0], [...arraySku1, 100]);
+        if(imovelParaCompararData.product.sku == "REO447971"){
+            console.log(isDescricaoSemelhante);
+            // console.log('sku1:',arraySku1);
+            // console.log('sku2:', arraySku2);
+            // console.log("similaridade:", similaridade);
+        }
+        return {
+          ...imovelParaCompararData,
+          similaridade
         }
       })
-    
-    });
-    return 'foi';
-  }
-
-  async getData(userDemand,page,itensPerPage): Promise<RealEstateDataResponse> {
-    const query = {
-      bool: {
-        must: []
-      }
-      
-    };
-
-    if(userDemand.state){
-      query.bool.must.push({
-        match: { state: userDemand.state}
-      });
-    }
-    
-    if(userDemand.city){
-      query.bool.must.push({
-        match: { city: userDemand.city}
-      });
-    }
-
-    if(userDemand.neighborhood){
-      query.bool.must.push({
-        match: { neighborhood: userDemand.neighborhood}
-      });
-    }
-    const isToRent = userDemand.transationType && userDemand.transationType == 'rent';
-    const isToSell = userDemand.transationType && userDemand.transationType == 'sale';
-    if(isToRent || isToSell){
-      query.bool.must.push({
-        term: isToRent ? { isToRent: 1} :  { isToSell: 1}
-      });
-    }
-
-    if(userDemand.maxValue){
-      query.bool.must.push({
-        range: isToSell ? 
-          { priceSale: { lte:  userDemand.maxValue }} : { totalPriceRent: { lte:  userDemand.maxValue }}
-      });
-    }
-    
-    const data = await this.elasticsearchService.search({
-      index: 'imovel-ideal',
-      type: 'real-estate',
-    
-      body: {
-        query,
-      },
-      
-      from: itensPerPage * page,
-      size: itensPerPage
-    });
-    
-    return {
-       metadata: {
-        currentPage:parseInt(page),
-        totalPages: Math.ceil(data.body.hits.total.value / itensPerPage) ,
-        itensPerPage: parseInt(itensPerPage),
-        totalItens: data.body.hits.total.value
-      },
-      data: data.body.hits.hits.map(data => data._source), 
-    };
+      // .filter(a => a.similaridade == 1)
+      .sort((a,b) => b.similaridade - a.similaridade)
+      .splice(0, 300)
+      .map(a => ({similaridade: a.similaridade, sku: a.product.sku}));
+    return dadosDepois;
   }
 
   getToken(userToken): Promise<UserDemand> {

@@ -13,7 +13,7 @@ import { UserDemand } from './user-demand.entity';
 @Module({
   imports: [
     ElasticsearchModule.register({
-      node: `http://${process.env.ELASTIC_HOST || 'localhost'}:${process.env.ELASTIC_PORT || '9200'}`,
+      node: ``,
     }),
     TypeOrmModule.forFeature([UserDemand, DImovel, SnapshotImovelFotos, DCaract, BImovelCarac ])
   ],

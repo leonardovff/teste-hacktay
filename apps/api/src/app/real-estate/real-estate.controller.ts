@@ -13,8 +13,6 @@ export class RealEstateController {
   @Get('search/:sku/')
   async getData(
     @Param('sku') sku: string,
-    @Query('page') page: number,
-    @Query('itensPerPage') itensPerPage = 20
   ): Promise<any> {
     console.log('entrou');
     // if(!userDemand) {
@@ -26,7 +24,7 @@ export class RealEstateController {
       console.log(e);
     }
 
-    return null;  
+    return null;
   }
 
   // @Get('bulk')

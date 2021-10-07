@@ -14,7 +14,7 @@ import * as sm from 'sequencematcher';
 import * as difflib from 'difflib';
 
 function randomIntFromInterval(min, max) { // min and max included
-  return Math.floor(Math.random() * (max - min + 1) + min)
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function cosinesim(A, B) {
@@ -28,7 +28,7 @@ function cosinesim(A, B) {
   }
   mA = Math.sqrt(mA);
   mB = Math.sqrt(mB);
-  const similarity = (dotproduct) / ((mA) * (mB)) // here you needed extra brackets
+  const similarity = (dotproduct) / ((mA) * (mB)); // here you needed extra brackets
   return similarity;
 }
 
@@ -61,7 +61,7 @@ export class RealEstateService {
     const typology = imovel.product_detail.detail.typology;
     // tem duas areas - living e total
     if (!typology) {
-      return [0, 0, 0, 0, 0, 0, 0, 0]
+      return [0, 0, 0, 0, 0, 0, 0, 0];
     }
 
     const location = imovel.product_detail.real_estate_detail && imovel.product_detail.real_estate_detail.geometry
@@ -77,18 +77,18 @@ export class RealEstateService {
     const valor = valorTemp ? valorTemp.value : 0;
 
     const arraySku1 = [
-      areaTotal,
-      areaUtil,
-      valor,
-      typeof typology.bedroom_qty == "undefined" ? 0 : typology.bedroom_qty,
-      typeof typology.suite_qty == "undefined" ? 0 : typology.suite_qty,
-      typeof typology.bathroom_qty == "undefined" ? 0 : typology.bathroom_qty,
-      typeof typology.parking_spot_qty == "undefined" ? 0 : typology.parking_spot_qty,
-      typeof typology.total_parking_qty == "undefined" ? 0 : typology.total_parking_qty,
-      typeof typology.total_bathroom_qty == "undefined" ? 0 : typology.total_bathroom_qty,
-      location.lat,
-      location.lon
-    ]
+      areaTotal * 100,
+      areaUtil * 100,
+      valor / 1000,
+      typeof typology.bedroom_qty == "undefined" ? 0 : typology.bedroom_qty * 1000,
+      typeof typology.suite_qty == "undefined" ? 0 : typology.suite_qty * 1000,
+      typeof typology.bathroom_qty == "undefined" ? 0 : typology.bathroom_qty * 1000,
+      typeof typology.parking_spot_qty == "undefined" ? 0 : typology.parking_spot_qty * 1000,
+      typeof typology.total_parking_qty == "undefined" ? 0 : typology.total_parking_qty * 1000,
+      typeof typology.total_bathroom_qty == "undefined" ? 0 : typology.total_bathroom_qty * 1000,
+      Math.round(location.lat * 1000),
+      Math.round(location.lon * 1000)
+    ];
     return arraySku1;
   }
 
@@ -149,7 +149,7 @@ export class RealEstateService {
           }
         }
       }
-    ]
+    ];
     const dataOthers = await this.elasticsearchService.search({
       index: 'products_v12',
       body: {
@@ -193,12 +193,21 @@ export class RealEstateService {
         return {
           ...imovelParaCompararData,
           similaridade
-        }
+        };
       })
       // .filter(a => a.similaridade == 1)
       .sort((a, b) => b.similaridade - a.similaridade)
-      .splice(0, 300)
-      .map(a => ({ similaridade: a.similaridade, sku: a.product.sku }));
+      .splice(0, 15)
+      //.filter(obj => obj.similaridade >= 0.9)
+      .map(a => ({ similaridade: a.similaridade, sku: a.product.sku }))
+      .reduce((acc, obj) => {
+        if (obj['similaridade'] >= 0.9996) {
+          acc['similar'] = [...acc['similar'], obj];
+        } else if (obj.similaridade >= 0.9) {
+          acc['planoB'] = [...acc['planoB'], obj];
+        }
+        return acc;
+      }, { "similar": [], "planoB": [] });
     return dadosDepois;
   }
 
